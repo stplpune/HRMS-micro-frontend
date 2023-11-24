@@ -25,3 +25,55 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+<!-- Installed Packages
+
+For Micro Frontend
+ 1.npm i @angular/elements 
+ 2.add package.json file under script obj add bundle
+ "bundle": "ng build --output-hashing none && node concat.js"
+ 3.npm i concat
+
+ 4.add app.module under ngDoBootstrap
+
+ 1.export class AppModule {
+
+  constructor(private injector: Injector) { }
+
+  ngDoBootstrap() {//for useing micro frontend 
+    const element = createCustomElement(AppComponent, {
+      injector: this.injector
+    })
+    customElements.define('micro', element);
+  }
+}
+2. Add  entryComponents: [AppComponent] after  bootstrap: [AppComponent],
+when befor npm run bundle comment  bootstrap: [AppComponent]
+
+5.Create concat.js file
+
+Add this script in concat.js file
+
+const concat = require("concat");
+(async function build() {const files = [
+        "./dist/reports/runtime.js",
+        "./dist/reports/polyfills.js",
+        "./dist/reports/main.js"
+];
+await concat(files, "./dist/reports/reports-module.js")})();
+
+6. Build comment
+    npm run bundle 
+ -->
+
+
+ <!-- used micr frontend project changes
+ 1.npm i @angular-extensions/elements
+
+ 2.  In app module
+ 1.schemas:[CUSTOM_ELEMENTS_SCHEMA] 
+ 2.LazyElementsModule import 
+  
+  
+  https://stackblitz.com/edit/angular-extensions-elements-basic-example?file=src%2Fapp%2Fapp.component.ts-->
